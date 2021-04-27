@@ -208,29 +208,6 @@ public class GestureControllerOverlay extends FrameLayout implements
 
     @Override
     public void adjustBrightness(double adjustPercent) {
-        if (adjustPercent < -1.0f) {
-            adjustPercent = -1.0f;
-        } else if (adjustPercent > 1.0f) {
-            adjustPercent = 1.0f;
-        }
-
-        WindowManager.LayoutParams lp = ((MovieActivity) getContext()).getWindow().getAttributes();
-        if (mStartBrightness < 0) {
-            mStartBrightness = lp.screenBrightness;
-        }
-        float targetBrightness = (float) (mStartBrightness + adjustPercent * 1.0f);
-        if (targetBrightness <= 0.0f) {
-            targetBrightness = 0.004f;
-        } else if (targetBrightness >= 1.0f) {
-            targetBrightness = 1.0f;
-        }
-        lp.screenBrightness = targetBrightness;
-        ((MovieActivity) getContext()).getWindow().setAttributes(lp);
-
-        if (mCurrentIndicator != null) {
-            mCurrentIndicator.setCompoundDrawables(null, mBrightnessDrawable, null, null);
-            mCurrentIndicator.setText((int) (targetBrightness * MAX_BRIGHTNESS) + "%");
-        }
         showIndicator();
     }
 
